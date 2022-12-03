@@ -1,0 +1,156 @@
+
+.header {
+  min-height: 216px;
+  padding-top: 40px;
+
+  font-size: 12px;
+  line-height: 1.33;
+  color: #FFFFFF;
+
+  @media screen and (max-width: 767px) {
+    min-height: 230px;
+  }
+}
+
+.header-bg {
+  background-image: url('../images/header-bg-1280.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @media screen and (max-width: 1279px) {
+    background-image: url('../images/header-bg-768.jpg');
+  }
+
+  @media screen and (max-width: 767px) {
+    background-image: url('../images/header-bg-320.jpg');
+  }
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.17;
+}
+
+.logo-text {
+  @media screen and (max-width: 767px) {
+    display: none;
+   }
+}
+
+.navigation-list {
+  display: flex;
+  gap: 40px;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.17;
+
+  text-transform: uppercase;
+}
+
+.item--current{
+  border-bottom: 3px solid #FF001B;
+}
+
+.js-wrapper {
+  position: relative;
+  margin-top: 40px;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 54px;
+  }
+}
+
+.search-form {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  width: 394px;
+
+  border-bottom: 0.5px solid #FFFFFF;
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    max-width: 336px;
+  }
+}
+
+.search-field {
+  width: 100%;
+  padding-bottom: 3px;
+
+  font-size: 14px;
+  line-height: 1.14;
+  color: #FFFFFF;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.search-field::placeholder{
+  font-size: 14px;
+  line-height: 1.14;
+  color: #FFFFFF;
+}
+
+.search-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btn-library {
+  min-width: 146px;
+  min-height: 40px;
+
+  font-weight: 500;
+  text-transform: uppercase;
+
+  color: #FFFFFF;
+  background-color: transparent;
+  border: 1px solid #FFFFFF;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.btn--current {
+  background: #FF6B01;
+  border: 1px solid #FF6B01;
+}
+
+.header-library-bg {
+    background-image: url('../images/library-header-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+}
+
+.item-error::after {
+  content: "Search result not successful. Enter the correct movie name";
+  position: absolute;
+  top: 40px;
+
+  font-size: 14px;
+  line-height: 1.14;
+  color: #FF001B;
+}
