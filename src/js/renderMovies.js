@@ -3,54 +3,50 @@ import { loader } from "./loader";
 
 const moviesListEl = document.querySelector('.movies-list')
 
-let moviesList;
-let item;
+let moviesGenresList;
+let movieItem;
 
-export function renderMovies(data, libraryFlag){
-  item = 0;
-  const isVoteHidden = libraryFlag? "" : "visually-hidden"
+export function renderMovies(data){
+  movieItem = 0;
+
+  const isLibraryPage = document.querySelector('.item--current')?.dataset.page === "library"
 
   const template = data.reduce((acc, movie) => {
     const {poster_path: poster, title, release_date, genre_ids, id, vote_average, genres } = movie;
+
     return acc +
       `<li class="movie" data-movieId="${id}">
-        <div class="poster-wrapper">
-          <img loading="lazy" class="movie-poster" src="https://image.tmdb.org/t/p/w500/${poster}" alt="${title}" />
-        </div>
-        <div class="movie-meta">
-          <h2 class="movie-title" title="${title}">${textLength(title, 33)}</h2>
-          <p class="movie-genre">
-            <span class="genres">${genresList(genre_ids, genres)}</span> | ${parseInt(release_date)}
-            <span class="vote ${isVoteHidden}">${vote_average.toFixed(1)}</span>
-          </p>
-        </div>
+          <div class="poster-wrapper">
+            <img loading="lazy" class="movie-poster" src="https://image.tmdb.org/t/p/w500/${poster}" alt="${title}" />
+          </div>
+          <div class="movie-meta">
+            <h2 class="movie-title" title="${title}">${title}</h2>
+            <p class="movie-genre">
+              <span class="genres">${genresList(genre_ids, genres)}</span> | ${parseInt(release_date)}
+              <span class="vote ${isLibraryPage? "" : "visually-hidden"}">${vote_average.toFixed(1)}</span>
+            </p>
+          </div>
       </li>`
   }, '')
 
   moviesListEl.innerHTML = template;
+
   loader.off()
 
-  moviesList = document.querySelectorAll('.genres')
-}
-
-function textLength(text, length){
-  if(text.length > length){
-    const str = [...text]
-    str.length = length - 3
-    return str.join('') + '...'
-  }
-  return text
+  moviesGenresList = document.querySelectorAll('.genres')
 }
 
 function genresList(idArr, genres) {
   if(genres) {
-    const template = genres.map(genre => genre.name).join(", ")
-    return textLength(template, 25)
+    return genres.map(genre => genre.name).join(", ")
   }
 
   getMovies.getGenres()
-  .then(genresArr => genresArr.filter(genre => idArr.includes(genre.id)))
-  .then(genresFilteredArr => genresFilteredArr.map(({name}) => `${name}`).join(', '))
-  .then(template => moviesList[item].innerHTML = textLength(template, 30))
-  .finally(() => item++)
+  .then(genresArr => {
+    const genresFilteredArr = genresArr.filter(genre => idArr.includes(genre.id))
+    const genresString = genresFilteredArr.map(({name}) => name).join(', ')
+    moviesGenresList[movieItem].innerHTML = genresString
+  })
+  .catch(e => console.log(e))
+  .finally(() => movieItem++)
 }

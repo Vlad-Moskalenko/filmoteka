@@ -7,11 +7,11 @@ getTrendingMovies()
 
 export function getTrendingMovies(){
   loader.on()
+
   getMovies.getTrendingMovies()
   .then(({data}) => {
     instance.reset(data.total_results)
-    return data.results
+    renderMovies(data.results)
   })
-  .then(renderMovies)
   .catch(err => console.log(err))
 }

@@ -10,6 +10,8 @@ moviesListEl.addEventListener('click', onMovieItemClick)
 closeBtn.addEventListener('click', hideModal)
 
 async function onMovieItemClick(e){
+  e.preventDefault()
+
   if(e.target.tagName === "UL") {
     return
   }
@@ -60,6 +62,7 @@ function addMovieToLocaleStorage(itemKey, movieData){
 
   if(itemStorage){
     const isNotUnique = JSON.parse(itemStorage).find(movie => movie.id === movieData.id)
+
     if(isNotUnique) return
   }
 

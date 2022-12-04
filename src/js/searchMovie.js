@@ -3,29 +3,37 @@ import { renderMovies } from "./renderMovies";
 import { instance } from "./pagination";
 import { loader } from "./loader";
 
-export function onSearchFormSubmit(e){
+export async function onSearchFormSubmit(e){
   e.preventDefault()
+
   const query = e.target.query.value
   const currentTarget = e.currentTarget
 
-  if(query === "") return currentTarget.classList.add('item-error')
+  if(query === "") {
+    return currentTarget.classList.add('item-error')
+  }
 
-  loader.on()
+  try{
+    loader.on()
+    const getSearchMovies= await getMovies.searchMovie(query)
+    const {data: moviesData} = getSearchMovies
 
-  getMovies.searchMovie(query)
-  .then(({data}) => {
-    if(data.total_results === 0){
-     throw new Error("404")
+    if(moviesData.total_results === 0) {
+      throw new Error("404")
     }
+
     currentTarget.classList.remove('item-error')
-    return data
-  })
-  .then(data => {
-    instance.reset(data.total_results)
-    return data.results
-  })
-  .then(renderMovies)
-  .catch(err => {
+
+    instance.reset(moviesData.total_results)
+
+    renderMovies(moviesData.results)
+  }
+
+  catch(err) {
     err.message === "404"? currentTarget.classList.add('item-error') : console.log(err)
-  })
+  }
+
+  finally {
+    loader.off()
+  }
 }

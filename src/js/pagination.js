@@ -1,10 +1,13 @@
 import Pagination from 'tui-pagination';
 import "tui-pagination/dist/tui-pagination.min.css"
+
 import { getMovies } from './getFetch';
 import { renderMovies } from './renderMovies';
 import { loader } from "./loader";
+import { libraryMovies } from './library';
 
 const container = document.getElementById('tui-pagination-container');
+const searchForm = document.querySelector('#search-form')
 
 export const options = {
   totalItems: 500,
@@ -13,22 +16,6 @@ export const options = {
   centerAlign: true,
   firstItemClassName: 'tui-first-child',
   lastItemClassName: 'tui-last-child',
-  template: {
-    page: '<a href="#" class="tui-page-btn">{{page}}</a>',
-    currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
-    moveButton:
-        '<a href="#" class="tui-page-btn tui-{{type}}">' +
-            '<span class="tui-ico-{{type}}">{{type}}</span>' +
-        '</a>',
-    disabledMoveButton:
-        '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
-            '<span class="tui-ico-{{type}}">{{type}}</span>' +
-        '</span>',
-    moreButton:
-        '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
-            '<span class="tui-ico-ellip">...</span>' +
-        '</a>'
-  }
 };
 
 export const instance = new Pagination(container, options);
@@ -36,16 +23,22 @@ export const instance = new Pagination(container, options);
 instance.on('beforeMove', onPaginationClick);
 
 function onPaginationClick(e){
-  const isSearchQuery = document.querySelector('.search-field').value
+  const searchQuery = searchForm.elements.query.value
+  const currentPage = document.querySelector('.item--current')
+
   loader.on()
 
-  if(isSearchQuery){
+  if(searchQuery !== ""){
     getMovies.searchMovie(getMovies.query, e.page)
     .then(({data}) => renderMovies(data.results))
-    .catch(err => console.log(err))
+    .catch(() => searchForm.classList.add('item-error'))
   }
 
-  else {
+  if(currentPage.dataset.page === "library"){
+    libraryMovies(e.page)
+  }
+
+  if(searchQuery === "" && currentPage.dataset.page === "home") {
     getMovies.getTrendingMovies(e.page)
     .then(({data}) => renderMovies(data.results))
     .catch(err => console.log(err))

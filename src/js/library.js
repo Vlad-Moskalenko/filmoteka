@@ -2,23 +2,25 @@ import { renderMovies } from "./renderMovies";
 import { instance } from "./pagination";
 
 const moviesListEl = document.querySelector('.movies-list')
+const itemsPerPage = 9;
+let itemsArr;
 
 export function onBtnClick(e){
-  const watchedBtnEl = document.querySelector('[data-watched]')
-  const queueBtnEl = document.querySelector('[data-queue]')
   const target = e.target
 
   if(target.tagName !== "BUTTON") return
 
   target.classList.add('btn--current')
 
-  if("watched" in target.dataset){
-    queueBtnEl.classList.remove('btn--current')
+  if("watched" in target?.dataset){
+    target.nextElementSibling.classList.remove('btn--current')
+
     getItemLocaleStorage("watched")
   }
 
-  if("queue" in target.dataset){
-    watchedBtnEl.classList.remove('btn--current')
+  if("queue" in target?.dataset){
+    target.previousElementSibling.classList.remove('btn--current')
+
     getItemLocaleStorage("queue")
   }
 }
@@ -26,12 +28,19 @@ export function onBtnClick(e){
 export function getItemLocaleStorage(itemKey){
   const itemsJSON = localStorage.getItem(`${itemKey}`)
 
-  if(itemsJSON) {
-    const itemsArr = JSON.parse(itemsJSON)
-    instance.reset(itemsArr.length)
-    return renderMovies(itemsArr, "library")
+  if(!itemsJSON){
+    moviesListEl.innerHTML = ''
+    return instance.reset(0)
   }
 
-  moviesListEl.innerHTML = ''
-  instance.reset(0)
+  itemsArr = JSON.parse(itemsJSON).reverse()
+
+  instance.setItemsPerPage(itemsPerPage)
+  instance.reset(itemsArr.length)
+
+  libraryMovies()
+}
+
+export function libraryMovies(page=1){
+  renderMovies(itemsArr.slice(page*itemsPerPage - 9, page*itemsPerPage))
 }
