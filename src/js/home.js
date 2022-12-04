@@ -10,6 +10,7 @@ export function getTrendingMovies(){
 
   getMovies.getTrendingMovies()
   .then(({data}) => {
+    instance.setItemsPerPage(20)
     instance.reset(data.total_results)
     renderMovies(data.results)
   })

@@ -24,6 +24,7 @@ export async function onSearchFormSubmit(e){
 
     currentTarget.classList.remove('item-error')
 
+    instance.setItemsPerPage(20)
     instance.reset(moviesData.total_results)
 
     renderMovies(moviesData.results)

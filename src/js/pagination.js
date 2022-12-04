@@ -43,4 +43,9 @@ function onPaginationClick(e){
     .then(({data}) => renderMovies(data.results))
     .catch(err => console.log(err))
   }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
 }

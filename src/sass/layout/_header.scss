@@ -17,6 +17,8 @@
   background-repeat: no-repeat;
   background-size: cover;
 
+  animation: blur 250ms ease-in-out;
+
   @media screen and (max-width: 1279px) {
     background-image: url('../images/header-bg-768.jpg');
   }
@@ -24,6 +26,15 @@
   @media screen and (max-width: 767px) {
     background-image: url('../images/header-bg-320.jpg');
   }
+}
+
+.header-library-bg {
+  background-image: url('../images/library-header-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+
+  animation: blur-library 250ms ease-in-out;
 }
 
 .navigation {
@@ -40,6 +51,15 @@
   font-weight: 500;
   font-size: 30px;
   line-height: 1.17;
+
+  transition: color 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+.logo-link:hover,
+.logo-link:focus{
+  transform: scale(1.1);
+  color:#FF6B01;
+  fill:#FF6B01
 }
 
 .logo-text {
@@ -57,6 +77,17 @@
   line-height: 1.17;
 
   text-transform: uppercase;
+}
+
+.navigation-list li {
+  transition: color 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+.navigation-list li:hover,
+.navigation-list li:focus{
+  transform: scale(1.2);
+  color:#FF6B01;
+  fill:#FF6B01
 }
 
 .item--current{
@@ -79,6 +110,7 @@
   width: 394px;
 
   border-bottom: 0.5px solid #FFFFFF;
+  transition: border-color 250ms ease-in-out;
 
   @media screen and (max-width: 767px) {
     width: 100%;
@@ -97,6 +129,13 @@
   background-color: transparent;
   border: none;
   outline: none;
+
+  cursor: pointer;
+}
+
+.search-form:hover,
+.search-form:focus {
+  border-color: #FF6B01;
 }
 
 .search-field::placeholder{
@@ -108,8 +147,14 @@
 .search-btn {
   background-color: transparent;
   border: none;
-  outline: none;
   cursor: pointer;
+
+  transition: transform 250ms ease-in-out;
+}
+
+.search-btn:hover,
+.search-btn:focus {
+  transform: scale(1.5);
 }
 
 .btn-wrapper {
@@ -131,18 +176,21 @@
   border-radius: 5px;
 
   cursor: pointer;
+
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out, transform 250ms ease-in-out, border-color 250ms ease-in-out;
+}
+
+.btn-library:hover,
+.btn-library:focus {
+  color: #000;
+  border-color: #fff;
+  background-color: #fff;
+  transform: scale(1.05);
 }
 
 .btn--current {
   background: #FF6B01;
   border: 1px solid #FF6B01;
-}
-
-.header-library-bg {
-    background-image: url('../images/library-header-bg.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: bottom;
 }
 
 .item-error::after {

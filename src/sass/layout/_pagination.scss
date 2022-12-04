@@ -15,8 +15,6 @@ div.tui-pagination .tui-page-btn {
 }
 
 div.tui-pagination .tui-page-btn:hover {
-  color: #fff;
-  background: #FF6B08;
   border-radius: 5px;
 }
 
@@ -28,7 +26,11 @@ div.tui-pagination .tui-is-selected, .tui-pagination strong {
   border-radius: 5px;
 }
 
-.tui-pagination .tui-is-selected:hover {
+div.tui-pagination .tui-first-child.tui-is-selected {
+  border-left: 1px solid #FF6B08;
+}
+
+div.tui-pagination .tui-is-selected:hover {
   background-color: #FF6B08;
 }
 
