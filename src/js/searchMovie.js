@@ -10,7 +10,7 @@ export async function onSearchFormSubmit(e){
   const currentTarget = e.currentTarget
 
   if(query === "") {
-    setTimeout(() => currentTarget.classList.remove('item-error'), 1000)
+    setTimeout(() => currentTarget.classList.remove('item-error'), 2000)
     return currentTarget.classList.add('item-error')
   }
 
@@ -37,6 +37,6 @@ export async function onSearchFormSubmit(e){
 
   finally {
     loader.off()
-    setTimeout(() => currentTarget.classList.remove('item-error'), 1000)
+    setTimeout(() => currentTarget.classList.remove('item-error'), 2000)
   }
 }
