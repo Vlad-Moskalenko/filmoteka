@@ -1,0 +1,36 @@
+.arrow-up {
+  position: fixed;
+  background-color: #fff;
+  right: 30px;
+  bottom: 95px;
+  z-index: 1000;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  opacity: 0.7;
+  box-shadow: rgba(255, 107, 1, 0.3) 0px 3px 6px 1px, rgba(255, 107, 1, 0.15) 0px 3px 6px 3px;
+  transform: scale(1);
+  transition: color 250ms ease-in-out,
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
+
+  &:hover {
+    color: rgb(255, 107, 1);
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.arrow-up.hide {
+  display: none;
+}
+
+.arrow-up-icon {
+  transform: rotate(-90deg);
+  fill: currentColor;
+}

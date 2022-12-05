@@ -5,3 +5,4 @@ import './js/getMovieDetails'
 import './js/header-navigation'
 import './js/library'
 import './js/loader'
+import "./js/arrow-up"
