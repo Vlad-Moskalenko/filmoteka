@@ -33,6 +33,7 @@ async function onMovieItemClick(e){
 
 function showModalMovie(){
   modalMovieBackdrop.classList.remove('visually-hidden')
+  document.body.style.overflow = "hidden"
 
   modalMovieBackdrop.addEventListener('click', hideModal)
   document.addEventListener('keydown', hideModal)
@@ -41,6 +42,7 @@ function showModalMovie(){
 function hideModal(e){
   if(e.target === e.currentTarget || e.code === "Escape" || e.target.closest('button') === closeBtn){
     modalMovieBackdrop.classList.add('visually-hidden')
+    document.body.style.overflow = "visible"
 
     modalMovieBackdrop.removeEventListener('click', hideModal)
     document.removeEventListener('keydown', hideModal)
