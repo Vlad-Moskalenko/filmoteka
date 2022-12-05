@@ -1,5 +1,5 @@
 import {getMovies} from "./getFetch";
-import { instance } from "./pagination";
+import { paginationSettings } from "./pagination";
 import {renderMovies} from "./renderMovies"
 import {loader} from "./loader"
 
@@ -10,8 +10,7 @@ export function getTrendingMovies(){
 
   getMovies.getTrendingMovies()
   .then(({data}) => {
-    instance.setItemsPerPage(20)
-    instance.reset(data.total_results)
+    paginationSettings(data.total_results, 20)
     renderMovies(data.results)
   })
   .catch(err => console.log(err))

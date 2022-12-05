@@ -6,7 +6,7 @@ import { renderMovies } from './renderMovies';
 import { loader } from "./loader";
 import { libraryMovies } from './library';
 
-const container = document.getElementById('tui-pagination-container');
+export const container = document.getElementById('tui-pagination-container');
 const searchForm = document.querySelector('#search-form')
 
 export const options = {
@@ -48,4 +48,10 @@ function onPaginationClick(e){
     top: 0,
     behavior: "smooth"
 });
+}
+
+export function paginationSettings(totalResults, itemsPerPage){
+  totalResults < itemsPerPage? container.classList.add('visually-hidden') : container.classList.remove('visually-hidden')
+  instance.setItemsPerPage(itemsPerPage)
+  instance.reset(totalResults)
 }

@@ -1,6 +1,6 @@
 import { getMovies } from "./getFetch";
 import { renderMovies } from "./renderMovies";
-import { instance } from "./pagination";
+import { paginationSettings } from "./pagination";
 import { loader } from "./loader";
 
 export async function onSearchFormSubmit(e){
@@ -25,8 +25,7 @@ export async function onSearchFormSubmit(e){
 
     currentTarget.classList.remove('item-error')
 
-    instance.setItemsPerPage(20)
-    instance.reset(moviesData.total_results)
+    paginationSettings(moviesData.total_results, 20)
 
     renderMovies(moviesData.results)
   }

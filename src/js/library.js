@@ -1,5 +1,5 @@
 import { renderMovies } from "./renderMovies";
-import { instance } from "./pagination";
+import { paginationSettings } from "./pagination";
 
 const moviesListEl = document.querySelector('.movies-list')
 const itemsPerPage = 9;
@@ -30,13 +30,12 @@ export function getItemLocaleStorage(itemKey){
 
   if(!itemsJSON){
     moviesListEl.innerHTML = ''
-    return instance.reset(0)
+    return paginationSettings(0, 20)
   }
 
   itemsArr = JSON.parse(itemsJSON).reverse()
 
-  instance.setItemsPerPage(itemsPerPage)
-  instance.reset(itemsArr.length)
+  paginationSettings(itemsArr.length, itemsPerPage)
 
   libraryMovies()
 }
