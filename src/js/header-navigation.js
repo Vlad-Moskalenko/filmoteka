@@ -1,4 +1,4 @@
-import { onBtnClick } from "./library"
+import { libraryMovies, onBtnClick } from "./library"
 import { onSearchFormSubmit } from "./searchMovie"
 import {getTrendingMovies} from './home'
 import { getItemLocaleStorage } from "./library"
@@ -29,7 +29,9 @@ function onNavigationItemClick(e){
   if(target.dataset.page === "library") {
     changeHeader(target, homeLinkEl, "header-library-bg", libraryBtn, searchForm)
 
-    getItemLocaleStorage('watched')
+    currentItem = "watched" in libraryBtn.querySelector('.btn--current').dataset? 'watched' : 'queue'
+
+    getItemLocaleStorage(currentItem)
   }
 
   if(target.dataset.page === "home" || target.closest('a')?.classList.contains('logo-link')) {
