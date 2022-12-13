@@ -50,32 +50,50 @@ function hideModal(e){
 }
 
 function onMovieBtnClick(e, movieData){
-
   if(e.target.textContent === "Add to watched"){
     addMovieToLocaleStorage('watched', movieData)
+    return e.target.textContent = "Remove from watched"
   }
   if(e.target.textContent === "Add to queue"){
     addMovieToLocaleStorage('queue', movieData)
+    return e.target.textContent = "Remove from queue"
+  }
+  if(e.target.textContent === "Remove from watched"){
+    removeMovieFromLocaleStorage('watched', movieData.id)
+    return e.target.textContent = "Add to watched"
+  }
+  if(e.target.textContent === "Remove from queue"){
+    removeMovieFromLocaleStorage('queue', movieData.id)
+    return e.target.textContent = "Add to queue"
   }
 }
 
 function addMovieToLocaleStorage(itemKey, movieData){
   const itemStorage = localStorage.getItem(`${itemKey}`)
 
-  if(itemStorage){
-    const isNotUnique = JSON.parse(itemStorage).find(movie => movie.id === movieData.id)
-
-    if(isNotUnique) return
-  }
-
   const itemValue = itemStorage? [...JSON.parse(itemStorage), movieData] : [movieData]
 
   localStorage.setItem(`${itemKey}`, JSON.stringify(itemValue))
 }
 
+function removeMovieFromLocaleStorage(itemKey, movieId){
+  const itemStorage = localStorage.getItem(`${itemKey}`)
+  const newMovieArr = JSON.parse(itemStorage).filter(movie => movie.id !== movieId)
+  localStorage.setItem(`${itemKey}`, JSON.stringify(newMovieArr))
+}
+
+function isNotUnique(itemKey, movieId){
+  const itemStorage = localStorage.getItem(`${itemKey}`)
+  if(itemStorage) {
+    return JSON.parse(itemStorage).find(movie => movie.id === movieId)
+  }
+}
+
 function renderMovieDetails({data}){
-  const {poster_path, title, vote_average, vote_count, popularity, original_title, genres, overview} = data
+  const {poster_path, title, vote_average, vote_count, popularity, original_title, genres, overview, id} = data
   const genresString = genres.map(({name}) => name).join(', ')
+  const btnWatchedTextContent = isNotUnique("watched", id)? "Remove from watched" : "Add to watched"
+  const btnQueueTextContent = isNotUnique("queue", id)? "Remove from queue" : "Add to queue"
 
   return `
   <div class="modal-movie__poster">
@@ -115,8 +133,8 @@ function renderMovieDetails({data}){
       <p class="modal-movie-about__desc">${overview}</p>
     </div>
     <div class="modal-movie-btn-wrapper">
-      <button class="modal-movie-btn">Add to watched</button>
-      <button class="modal-movie-btn">Add to queue</button>
+      <button class="modal-movie-btn" data-btn="watched">${btnWatchedTextContent}</button>
+      <button class="modal-movie-btn" data-btn="queue">${btnQueueTextContent}</button>
     </div>
   </div>`
 }
