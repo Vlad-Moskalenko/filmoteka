@@ -1,5 +1,6 @@
 import { getMovies } from "./getFetch";
-import {loader} from "./loader"
+import {loader} from "./loader";
+import img404 from "../images/404.jpg";
 
 const moviesListEl = document.querySelector('.movies-list')
 const modalMovieBackdrop = document.querySelector('.modal-backdrop')
@@ -94,12 +95,13 @@ function renderMovieDetails({data}){
   const genresString = genres.map(({name}) => name).join(', ')
   const btnWatchedTextContent = isNotUnique("watched", id)? "Remove from watched" : "Add to watched"
   const btnQueueTextContent = isNotUnique("queue", id)? "Remove from queue" : "Add to queue"
+  const imageSrc = poster_path? `https://image.tmdb.org/t/p/w500/${poster_path}` : img404
 
   return `
   <div class="modal-movie__poster">
     <img
       class="modal-movie__img"
-      src="https://image.tmdb.org/t/p/w500/${poster_path}"
+      src=${imageSrc}
       alt="movie poster"
     />
   </div>
