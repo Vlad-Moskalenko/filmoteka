@@ -29,7 +29,7 @@ function onNavigationItemClick(e){
   if(target.dataset.page === "library") {
     changeHeader(target, homeLinkEl, "header-library-bg", libraryBtn, searchForm)
 
-    currentItem = "watched" in libraryBtn.querySelector('.btn--current').dataset? 'watched' : 'queue'
+    const currentItem = "watched" in libraryBtn.querySelector('.btn--current').dataset? 'watched' : 'queue'
 
     getItemLocaleStorage(currentItem)
   }
