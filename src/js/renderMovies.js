@@ -4,12 +4,7 @@ import img404 from "../images/404.jpg"
 
 const moviesListEl = document.querySelector('.movies-list')
 
-let moviesGenresList;
-let movieItem;
-
 export async function renderMovies(data){
-  movieItem = 0;
-
   const isLibraryPage = document.querySelector('.item--current')?.dataset.page === "library";
   const genresData = await getMovies.getGenres()
 
@@ -35,8 +30,6 @@ export async function renderMovies(data){
   moviesListEl.innerHTML = template;
 
   loader.off()
-
-  moviesGenresList = document.querySelectorAll('.genres')
 }
 
 function genresList(idArr, genres, genresData) {
