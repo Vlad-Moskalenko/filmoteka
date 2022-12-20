@@ -1,6 +1,7 @@
 import { getMovies } from "./getFetch";
 import {loader} from "./loader";
 import img404 from "../images/404.jpg";
+import { getItemLocaleStorage } from "./library";
 
 const moviesListEl = document.querySelector('.movies-list')
 const modalMovieBackdrop = document.querySelector('.modal-backdrop')
@@ -71,16 +72,24 @@ function onMovieBtnClick(e, movieData){
 
 function addMovieToLocaleStorage(itemKey, movieData){
   const itemStorage = localStorage.getItem(`${itemKey}`)
-
   const itemValue = itemStorage? [...JSON.parse(itemStorage), movieData] : [movieData]
 
   localStorage.setItem(`${itemKey}`, JSON.stringify(itemValue))
+
+  if(itemKey in document.querySelector('.btn--current').dataset && document.querySelector('.item--current').dataset.page === "library"){
+    getItemLocaleStorage(itemKey)
+  }
 }
 
 function removeMovieFromLocaleStorage(itemKey, movieId){
   const itemStorage = localStorage.getItem(`${itemKey}`)
   const newMovieArr = JSON.parse(itemStorage).filter(movie => movie.id !== movieId)
+
   localStorage.setItem(`${itemKey}`, JSON.stringify(newMovieArr))
+
+  if(itemKey in document.querySelector('.btn--current').dataset && document.querySelector('.item--current').dataset.page === "library"){
+    getItemLocaleStorage(itemKey)
+  }
 }
 
 function isNotUnique(itemKey, movieId){

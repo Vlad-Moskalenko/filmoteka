@@ -1,4 +1,4 @@
-import { libraryMovies, onBtnClick } from "./library"
+import { onBtnClick } from "./library"
 import { onSearchFormSubmit } from "./searchMovie"
 import {getTrendingMovies} from './home'
 import { getItemLocaleStorage } from "./library"
